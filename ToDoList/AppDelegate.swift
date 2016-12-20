@@ -2,11 +2,15 @@
 //  AppDelegate.swift
 //  ToDoList
 //
-//  Created by UncleDrew on 2016/12/20.
+//  Created by UncleDrew on 2016/12/19.
 //  Copyright © 2016年 UncleDrew. All rights reserved.
 //
 
 import UIKit
+
+
+private let SCREEN_WIDTH = UIScreen.main.bounds.size.width
+private let SCREEN_HEIGHT = UIScreen.main.bounds.size.height
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,10 +19,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        self.window = UIWindow(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
+        self.window?.rootViewController = UINavigationController(rootViewController: ViewController())
+        self.window?.backgroundColor = UIColor.white
+        self.window?.makeKeyAndVisible()
+        
         return true
     }
 
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        let urlStr = url.absoluteString
+        
+        if urlStr.hasPrefix("todolist://action=") {
+            if urlStr.hasSuffix("add") {
+                
+                print("add action")
+            }
+        }
+        
+        return true
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
